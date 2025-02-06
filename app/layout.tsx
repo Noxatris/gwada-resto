@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import localFont from 'next/font/local'
+
+import GlobalNav from "./(components)/globalNav";
+
+const juraFont = localFont({ src: 'fonts/jura.ttf', variable: '--font-jura' });
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,11 +28,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${juraFont.className} antialiased overflow-x-hidden w-screen`}
       >
+        <GlobalNav />
         {children}
       </body>
     </html>

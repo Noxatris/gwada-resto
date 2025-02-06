@@ -19,3 +19,18 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+@keyframes barre {
+  0% {
+    background-position: 0%; /* La barre commence hors du texte */
+  }
+  100% {
+    background-position: -200%; /* La barre traverse le texte */
+  }
+}
+
+.animate-barre {
+  background-size: 200% 100%; /* Permet à la barre d'avoir de l'espace pour le mouvement */
+  animation: barre 5s linear infinite; /* 3s pour la durée, peut être ajusté */
+}
