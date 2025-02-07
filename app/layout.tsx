@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import localFont from 'next/font/local'
 
+import SessionProviderWrapper from './(components)/sessionProvider';
 import GlobalNav from "./(components)/globalNav";
 
 const juraFont = localFont({ src: 'fonts/jura.ttf', variable: '--font-jura' });
@@ -34,8 +35,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${juraFont.className} antialiased overflow-x-hidden w-screen`}
       >
-        <GlobalNav />
-        {children}
+        <SessionProviderWrapper>
+          <GlobalNav />
+          {children}
+        </SessionProviderWrapper>
       </body>
     </html>
   );
