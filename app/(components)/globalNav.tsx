@@ -1,22 +1,14 @@
 'use client'
 
-import { useState, useEffect } from "react";
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname} from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faRightToBracket, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useSession, signOut } from "next-auth/react";
 
 export default function GlobalNav() {
     const pathname = usePathname(); // Récupère l'URL de la page actuelle
-    const router = useRouter();
-    const [isLogin, setIsLogin] = useState(false);
     const { data: session } = useSession();
-
-    useEffect(() => {
-        const loginStatus = localStorage.getItem("login");
-        setIsLogin(loginStatus === "true");
-    }, [pathname]);
 
     if (pathname.startsWith('/connexion')) {
         return null; // Si la route commence par /connexion, n'affiche pas le layout global

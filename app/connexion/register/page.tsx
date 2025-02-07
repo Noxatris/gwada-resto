@@ -36,7 +36,7 @@ export default function Register() {
             <div className='w-[100px] h-[100px] text-xl mt-16 border-8 border-cyan-400 text-cyan-400 shadow-md rounded-full p-4 flex items-center justify-center'>
                 <FontAwesomeIcon icon={faAddressCard} className="fa-fw w-auto h-[80%]" />
             </div>
-            <h1 className='mb-8 text-[2.5em] border-b-4 border-cyan-400 px-6'>S'enregistrer</h1>
+            <h1 className='mb-8 text-[2.5em] border-b-4 border-cyan-400 px-6'>S&apos;enregistrer</h1>
             <div className='w-full'>
                 <div className='flex flex-col items-center mb-4'>
                     <label htmlFor="identifiant" className='mb-2'>Identifiant</label>

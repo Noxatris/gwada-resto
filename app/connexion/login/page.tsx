@@ -60,7 +60,7 @@ export default function Login() {
             </div>
             {error && <p className="text-red-500 mt-4">{error}</p>}
             <Link href="/connexion/register" className="mt-4 italic text-blue-500 flex flex-col items-center">
-                <p>Vous n'avez pas de compte ?</p>
+                <p>Vous n&apos;avez pas de compte ?</p>
                 <p>Cliquez ici</p>
             </Link>
             <nav className='my-8 flex flex-row-reverse justify-between w-[80%]'>
