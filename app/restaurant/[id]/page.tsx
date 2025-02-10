@@ -31,7 +31,7 @@ interface Restaurant {
     img_url: string;
     email: string;
     note: string;
-    tag: String[];
+    tag: string[];
     opening_hours: Record<string, string>;
     menus: Menu[];
 }
