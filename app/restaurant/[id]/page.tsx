@@ -78,7 +78,7 @@ export default function Restaurant() {
                             <p className='mb-2'>{menu.description}</p>
                             <div>
                                 {menu.items.map(item => (
-                                    <ItemsCard id={item.id} name={item.name} description={item.description} price={item.price}  />
+                                    <ItemsCard key={item.id} id={item.id} name={item.name} description={item.description} price={item.price}  />
                                 ))}
                             </div>
                         </div>
