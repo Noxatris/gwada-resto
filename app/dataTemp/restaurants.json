@@ -10,6 +10,7 @@
         "img_url": "/bgPizzeria.jpg",
         "email": "contact@pizzeriabella.com",
         "evaluation": "",
+        "tag": ["Pizza", "Bokkit"],
         "opening_hours": {
             "monday": "11:00-22:00",
             "tuesday": "11:00-22:00",

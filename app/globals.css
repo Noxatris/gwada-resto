@@ -34,3 +34,11 @@ body {
   background-size: 200% 100%; /* Permet à la barre d'avoir de l'espace pour le mouvement */
   animation: barre 5s linear infinite; /* 3s pour la durée, peut être ajusté */
 }
+
+.test{
+  box-shadow: inset 0px 0px 24px -4px rgba(0,0,0,0.75);
+}
+
+.test2{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

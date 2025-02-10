@@ -2,7 +2,8 @@ import data from '@/app/dataTemp/restaurants.json'
 import Image from 'next/image'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faLocationDot, faPhone} from '@fortawesome/free-solid-svg-icons';
+import ItemsCard from '@/app/(components)/itemsCard';
 
 interface MenuItem {
     id: number;
@@ -23,13 +24,14 @@ interface Restaurant {
     id: number;
     name: string;
     address: string;
-    description : string;
+    description: string;
     latitude: number;
     longitude: number;
     phone_number: string;
     img_url: string;
     email: string;
     note: string;
+    tag: String[];
     opening_hours: Record<string, string>;
     menus: Menu[];
 }
@@ -48,27 +50,43 @@ export default function Restaurant() {
                         <FontAwesomeIcon icon={faStar} className="fa-fw flex justify-center items-center text-yellow-500 text-2xl" />
                     </div>
                 </div>
-                <div className='px-4'>
+                <div className='flex ml-8 mb-4'>
+                    {restaurant.tag.map(tag => (
+                        <p className='py-1 px-4 bg-cyan-400 mr-2 rounded-full text-white'>{tag}</p>
+                    ))}
+                </div>
+                <div className='px-4 py-12 test'>
                     {restaurant.description}
                 </div>
-                <p>{restaurant.address}</p>
-                <p>{restaurant.phone_number}</p>
-                <div>
+                <div className='mt-4 px-2'>
+                    <div className='flex items-center mb-4'>
+                        <button className='flex justify-center items-center rounded-full animate-pulse border-2 border-cyan-400 p-1 w-[40px] h-[40px] mr-2'><FontAwesomeIcon icon={faLocationDot} className="fa-fw flex justify-center items-center text-cyan-400 text-2xl" /></button>
+                        <p>{restaurant.address}</p>
+
+                    </div>
+                    <div className='flex items-center mb-4'>
+                        <button className='flex justify-center items-center rounded-full animate-pulse border-2 border-cyan-400 p-1 w-[40px] h-[40px] mr-2'><FontAwesomeIcon icon={faPhone} className="fa-fw flex justify-center items-center text-cyan-400 text-2xl" /></button>
+                        <p>{restaurant.phone_number}</p>
+
+                    </div>
+                </div>
+                <h2 className='w-full flex justify-center text-2xl border-b-4 border-cyan-400 pb-2'>Menu</h2>
+                <div className='test pt-8 pb-16'>
                     {restaurant.menus.map(menu => (
-                        <div key={menu.id}>
-                            <h2>{menu.name}</h2>
-                            <p>{menu.description}</p>
+                        <div key={menu.id} className='test2 mx-4 px-4 py-2 mb-8 rounded-xl'>
+                            <h2 className='ml-8 text-xl py-2'>{menu.name}</h2>
+                            <p className='mb-2'>{menu.description}</p>
                             <div>
                                 {menu.items.map(item => (
-                                    <div key={item.id}>
-                                        <h3>{item.name}</h3>
-                                        <p>{item.description}</p>
-                                        <p>${item.price}</p>
-                                    </div>
+                                    <ItemsCard id={item.id} name={item.name} description={item.description} price={item.price}  />
                                 ))}
                             </div>
                         </div>
                     ))}
+                    <div className='flex flex-col w-full items-center px-4'>
+                        <p className='flex self-end mb-8'>Prix Total : 0.00€</p>
+                        <button className='bg-cyan-400 text-white p-2 rounded-full w-10/12 shadow-xl'>Validé la commande</button>
+                    </div>
                 </div>
             </div>
         </section>
