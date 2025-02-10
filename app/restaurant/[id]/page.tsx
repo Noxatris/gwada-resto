@@ -52,7 +52,7 @@ export default function Restaurant() {
                 </div>
                 <div className='flex ml-8 mb-4'>
                     {restaurant.tag.map(tag => (
-                        <p className='py-1 px-4 bg-cyan-400 mr-2 rounded-full text-white'>{tag}</p>
+                        <p key={tag} className='py-1 px-4 bg-cyan-400 mr-2 rounded-full text-white'>{tag}</p>
                     ))}
                 </div>
                 <div className='px-4 py-12 test'>
