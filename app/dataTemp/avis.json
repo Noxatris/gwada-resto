@@ -1,0 +1,10 @@
+[
+    {
+      "id": 301,
+      "restaurant_id": 1,
+      "client_id": 1,
+      "rating": 5,
+      "comment": "Super expérience ! Les plats étaient délicieux et le service impeccable.",
+      "date": "2024-02-06T14:45:00Z"
+    }
+  ]

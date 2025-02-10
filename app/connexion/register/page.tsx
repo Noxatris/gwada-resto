@@ -7,29 +7,42 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressCard, faCircleCheck, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 export default function Register() {
+    const [email, setEmail] = useState('');
     const [identifiant, setIdentifiant] = useState('');
     const [telephone, setTelephone] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
-    const [error, setError] = useState({ identifiant: false, password: false, passwordConfirm: false, telephone: false, message: '' });
+    const [error, setError] = useState({ email: false, identifiant: false, password: false, passwordConfirm: false, telephone: false, message: '' });
     const router = useRouter();
 
-    const handleLogin = () => {
-        // Simulate login logic
-        if (identifiant !== 'correctIdentifiant') {
-            setError({ identifiant: true, password: false, passwordConfirm: false, telephone: false,  message: 'Aucun compte trouvé avec cet identifiant.' });
-            setPassword('');
-        } else if (password !== 'correctPassword') {
-            setError({ identifiant: false, password: true, passwordConfirm: false, telephone: false,  message: 'Mot de passe incorrect.' });
-            setPassword('');
-        } else {
-            setError({ identifiant: false, password: false, passwordConfirm: false, telephone: false,  message: '' });
-            localStorage.setItem("login", "true");
-            router.push('/'); // Redirect to home page
+    const handleRegister = () => {
+        // Validate email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setError({ ...error, email: true, message: 'Adresse email invalide.' });
+            return;
         }
+
+        // Validate telephone (French number)
+        const telRegex = /^(\+33|0)[1-9](\d{2}){4}$/;
+        if (!telRegex.test(telephone)) {
+            setError({ ...error, telephone: true, message: 'Numéro de téléphone invalide.' });
+            return;
+        }
+
+        // Validate password match
+        if (password !== passwordConfirm) {
+            setError({ ...error, password: true, passwordConfirm: true, message: 'Les mots de passe ne correspondent pas.' });
+            return;
+        }
+
+        // Simulate registration logic
+        setError({ email: false, identifiant: false, password: false, passwordConfirm: false, telephone: false, message: '' });
+        // Proceed with registration
+        router.push('/'); // Redirect to home page
     };
 
-    const isDisabled = !identifiant || !password || !passwordConfirm || !telephone;
+    const isDisabled = !email || !identifiant || !password || !passwordConfirm || !telephone;
 
     return (
         <div className='w-full h-[80%] rounded-2xl bg-white shadow-2xl m-8 flex flex-col items-center text-black'>
@@ -39,7 +52,17 @@ export default function Register() {
             <h1 className='mb-8 text-[2.5em] border-b-4 border-cyan-400 px-6'>S&apos;enregistrer</h1>
             <div className='w-full'>
                 <div className='flex flex-col items-center mb-4'>
-                    <label htmlFor="identifiant" className='mb-2'>Identifiant</label>
+                    <label htmlFor="email" className='mb-2'>Adresse Mail</label>
+                    <input
+                        type="email"
+                        id='email'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className={`w-[80%] h-[38px] ${error.email ? 'bg-red-200' : 'bg-gray-200'} rounded-xl pl-2 inset-shadow-xl`}
+                    />
+                </div>
+                <div className='flex flex-col items-center mb-4'>
+                    <label htmlFor="identifiant" className='mb-2'>Nom</label>
                     <input
                         type="text"
                         id='identifiant'
@@ -71,7 +94,7 @@ export default function Register() {
                 <div className='flex flex-col items-center'>
                     <label htmlFor="passwordConfirm" className='mb-2'>Confirmé votre mot de passe</label>
                     <input
-                        type="passwordConfirm"
+                        type="password"
                         id='passwordConfirm'
                         value={passwordConfirm}
                         onChange={(e) => setPasswordConfirm(e.target.value)}
@@ -86,7 +109,7 @@ export default function Register() {
             </Link>
             <nav className='my-8 flex flex-row-reverse justify-between w-[80%]'>
                 <button
-                    onClick={handleLogin}
+                    onClick={handleRegister}
                     disabled={isDisabled}
                     className={`w-[35%] h-[50px] rounded-2xl ${isDisabled ? 'bg-gray-400' : 'bg-cyan-400'} text-white flex justify-center items-center`}
                 >

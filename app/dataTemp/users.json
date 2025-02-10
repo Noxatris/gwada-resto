@@ -1,0 +1,22 @@
+[
+    {
+      "id": 1,
+      "name": "Admin GwadaResto",
+      "email": "admin@gwada-resto.com",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "name": "Marc Lemoine",
+      "email": "marc.lemoine@example.com",
+      "role": "restaurant_owner",
+      "restaurant_id": 1
+    },
+    {
+      "id": 3,
+      "name": "Sarah Duvivier",
+      "email": "sarah.duvivier@example.com",
+      "role": "employee",
+      "restaurant_id": 1
+    }
+  ]

@@ -21,7 +21,7 @@ export default function GlobalNav() {
                     <Link href="/" className="w-12 h-12 flex justify-center items-center bg-green-500 rounded-full">
                         <FontAwesomeIcon icon={faUser} className="fa-fw" />
                     </Link>
-                    <Link href="/" className="w-12 h-12 flex justify-center items-center bg-orange-500 rounded-full">
+                    <Link href="/restaurant/1" className="w-12 h-12 flex justify-center items-center bg-orange-500 rounded-full">
                         <FontAwesomeIcon icon={faCartShopping} className="fa-fw" />
                     </Link>
                     <button onClick={() => { signOut({redirect: true, callbackUrl: "/"})}} className="w-12 h-12 flex justify-center items-center bg-pink-500 rounded-full">

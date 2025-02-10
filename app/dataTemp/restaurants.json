@@ -1,0 +1,65 @@
+[
+    {
+        "id": 1,
+        "name": "Pizzeria Bella Italia",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel lacus sed elit auctor pharetra eget ac mauris. Mauris at justo vel felis finibus accumsan. Quisque lobortis tortor ut dolor ultrices, finibus vulputate mi pretium. Sed ac tincidunt odio. Mauris blandit diam nunc, quis vulputate dui sollicitudin ut. Quisque eget bibendum nisl. Integer auctor ultricies diam id laoreet. Sed lacinia orci sagittis, ornare nibh at, molestie mi.",
+        "address": "123 Rue des Pizzas, Guadeloupe",
+        "latitude": 16.2388,
+        "longitude": -61.5304,
+        "phone_number": "+59012345678",
+        "img_url": "/bgPizzeria.jpg",
+        "email": "contact@pizzeriabella.com",
+        "evaluation": "",
+        "opening_hours": {
+            "monday": "11:00-22:00",
+            "tuesday": "11:00-22:00",
+            "wednesday": "11:00-22:00",
+            "thursday": "11:00-22:00",
+            "friday": "11:00-22:00",
+            "saturday": "11:00-22:00",
+            "sunday": "11:00-22:00"
+        },
+        "menus": [
+            {
+                "id": 1,
+                "name": "Pizzas",
+                "category": "Main Course",
+                "description": "Découvrez notre large sélection de pizzas faites maison",
+                "items": [
+                    {
+                        "id": 1,
+                        "name": "Margherita",
+                        "description": "Tomato, mozzarella, basil",
+                        "price": 12.50
+                    },
+                    {
+                        "id": 2,
+                        "name": "Pepperoni",
+                        "description": "Tomato, mozzarella, pepperoni",
+                        "price": 13.50
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "name": "Desserts",
+                "category": "Dessert",
+                "description": "Desserts sucrés pour terminer votre repas",
+                "items": [
+                    {
+                        "id": 3,
+                        "name": "Tiramisu",
+                        "description": "Traditional Italian dessert",
+                        "price": 6.50
+                    },
+                    {
+                        "id": 4,
+                        "name": "Panna Cotta",
+                        "description": "Creamy vanilla pudding",
+                        "price": 6.00
+                    }
+                ]
+            }
+        ]
+    }
+]

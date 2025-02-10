@@ -1,0 +1,12 @@
+[
+    {
+      "id": 1,
+      "name": "Jean Dupont",
+      "email": "jean.dupont@example.com",
+      "phone": "+590 690 12 34 56",
+      "address": "Rue des Hibiscus, Basse-Terre",
+      "orders_count": 5,
+      "favorite_restaurants": [1, 2, 3]
+    }
+  ]
+  

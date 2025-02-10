@@ -20,14 +20,13 @@ export const authOptions = {
       },
       authorize: async (credentials) => {
         // Remplace par ta logique pour valider les credentials
-        if (
-          credentials?.identifiant === "correctIdentifiant" &&
-          credentials?.password === "correctPassword"
-        ) {
-          return { id: "1", name: "User", email: "user@example.com" };
-        } else {
-          return null;
+        if (credentials?.identifiant !== "correctIdentifiant") {
+          throw new Error("Identifiant incorrect.");
         }
+        if (credentials?.password !== "1234") {
+          throw new Error("Mot de passe incorrect.");
+        }
+        return { id: "1", name: "User", email: "user@example.com" };
       },
     }),
   ],
