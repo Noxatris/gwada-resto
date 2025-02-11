@@ -4,6 +4,7 @@ import data from '@/app/dataTemp/restaurants.json'
 import Image from 'next/image'
 
 import MenuItem from '../../(components)/menuItem'
+import Cart from '../../(components)/cart'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
@@ -56,8 +57,7 @@ export default function Restaurant() {
                         </div>
                     ))}
                     <div className='flex flex-col w-full items-center px-4'>
-                        <p className='flex self-end mb-8'>Prix Total : {}€</p>
-                        <button className='bg-cyan-400 text-white p-2 rounded-full w-10/12 shadow-xl'>Validé la commande</button>
+                        <Cart />
                     </div>
                 </div>
             </div>

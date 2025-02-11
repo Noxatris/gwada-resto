@@ -1,7 +1,8 @@
 "use client";
 
-import { createContext, useReducer, useContext, ReactNode } from "react";
+import { createContext, useContext, useReducer, ReactNode } from "react";
 
+// 🛒 Définition des types du panier
 export interface CartOption {
   id: string;
   name: string;
@@ -12,69 +13,101 @@ export interface CartItem {
   id: string;
   name: string;
   basePrice: number;
+  quantity: number;
   options: CartOption[];
   totalPrice: number;
-  quantity: number;
 }
 
 interface CartState {
-  items: CartItem[];
+  cart: CartItem[];
+  totalPrice: number;
 }
 
+// 🔥 Actions disponibles pour le panier
 type Action =
   | { type: "ADD_TO_CART"; item: CartItem }
   | { type: "REMOVE_FROM_CART"; id: string }
-  | { type: "CLEAR_CART" };
+  | { type: "CLEAR_CART" }
+  | { type: "UPDATE_QUANTITY"; id: string; quantity: number };
 
+// 🎯 Fonction `reducer` pour gérer les actions du panier
 const cartReducer = (state: CartState, action: Action): CartState => {
   switch (action.type) {
-    case "ADD_TO_CART":
-      return { items: [...state.items, action.item] };
+    case "ADD_TO_CART": {
+      const existingItemIndex = state.cart.findIndex((item) => item.id === action.item.id);
+      let updatedCart = [...state.cart];
 
-    case "REMOVE_FROM_CART":
-      return { items: state.items.filter((item) => item.id !== action.id) };
+      if (existingItemIndex !== -1) {
+        // Mise à jour de la quantité si l'article est déjà dans le panier
+        updatedCart[existingItemIndex].quantity += action.item.quantity;
+        updatedCart[existingItemIndex].totalPrice += action.item.totalPrice;
+      } else {
+        updatedCart.push(action.item);
+      }
+
+      return {
+        cart: updatedCart,
+        totalPrice: updatedCart.reduce((total, item) => total + item.totalPrice, 0),
+      };
+    }
+
+    case "REMOVE_FROM_CART": {
+      const updatedCart = state.cart.filter((item) => item.id !== action.id);
+      return {
+        cart: updatedCart,
+        totalPrice: updatedCart.reduce((total, item) => total + item.totalPrice, 0),
+      };
+    }
+
+    case "UPDATE_QUANTITY": {
+      const updatedCart = state.cart.map((item) =>
+        item.id === action.id ? { ...item, quantity: action.quantity, totalPrice: item.basePrice * action.quantity } : item
+      );
+      return {
+        cart: updatedCart,
+        totalPrice: updatedCart.reduce((total, item) => total + item.totalPrice, 0),
+      };
+    }
 
     case "CLEAR_CART":
-      return { items: [] };
+      return { cart: [], totalPrice: 0 };
 
     default:
       return state;
   }
 };
 
+// 🎯 Création du contexte du panier
 const CartContext = createContext<{
-  state: CartState;
+  cart: CartItem[];
+  totalPrice: number;
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: string) => void;
+  updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
 } | null>(null);
 
-export function CartProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(cartReducer, { items: [] });
+// 🔥 Provider du panier (à inclure dans `_app.tsx` ou `layout.tsx`)
+export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const [state, dispatch] = useReducer(cartReducer, { cart: [], totalPrice: 0 });
 
-  const addToCart = (item: CartItem) => {
-    dispatch({ type: "ADD_TO_CART", item });
-  };
-
-  const removeFromCart = (id: string) => {
-    dispatch({ type: "REMOVE_FROM_CART", id });
-  };
-
-  const clearCart = () => {
-    dispatch({ type: "CLEAR_CART" });
-  };
+  const addToCart = (item: CartItem) => dispatch({ type: "ADD_TO_CART", item });
+  const removeFromCart = (id: string) => dispatch({ type: "REMOVE_FROM_CART", id });
+  const updateQuantity = (id: string, quantity: number) => dispatch({ type: "UPDATE_QUANTITY", id, quantity });
+  const clearCart = () => dispatch({ type: "CLEAR_CART" });
 
   return (
-    <CartContext.Provider value={{ state, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ ...state, addToCart, removeFromCart, updateQuantity, clearCart }}>
       {children}
     </CartContext.Provider>
   );
-}
+};
 
-export function useCart() {
+// 🎯 Hook personnalisé pour utiliser le contexte
+export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
-    throw new Error("useCart doit être utilisé dans un CartProvider");
+    throw new Error("useCart doit être utilisé à l'intérieur de CartProvider");
   }
   return context;
-}
+};
