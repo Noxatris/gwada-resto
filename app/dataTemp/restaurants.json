@@ -10,7 +10,10 @@
         "img_url": "/bgPizzeria.jpg",
         "email": "contact@pizzeriabella.com",
         "evaluation": "",
-        "tag": ["Pizza", "Bokkit"],
+        "tag": [
+            "Pizza",
+            "Bokkit"
+        ],
         "opening_hours": {
             "monday": "11:00-22:00",
             "tuesday": "11:00-22:00",
@@ -28,16 +31,28 @@
                 "description": "Découvrez notre large sélection de pizzas faites maison",
                 "items": [
                     {
-                        "id": 1,
-                        "name": "Margherita",
-                        "description": "Tomato, mozzarella, basil",
-                        "price": 12.50
+                      "id": "1",
+                      "name": "Pizza Margherita",
+                      "description": "Tomate, mozzarella, basilic",
+                      "basePrice": 12,
+                      "options": [
+                            { "id": "o1", "name": "Supplément fromage", "price": 2
+                            },
+                            { "id": "o2", "name": "Supplément jambon", "price": 3
+                            }
+                        ]
                     },
                     {
-                        "id": 2,
-                        "name": "Pepperoni",
-                        "description": "Tomato, mozzarella, pepperoni",
-                        "price": 13.50
+                      "id": "2",
+                      "name": "Burger Classique",
+                      "description": "Steak, salade, tomate, sauce maison",
+                      "basePrice": 10,
+                      "options": [
+                            { "id": "o3", "name": "Double steak", "price": 4
+                            },
+                            { "id": "o4", "name": "Supplément bacon", "price": 2
+                            }
+                        ]
                     }
                 ]
             },
@@ -48,17 +63,27 @@
                 "description": "Desserts sucrés pour terminer votre repas",
                 "items": [
                     {
-                        "id": 3,
+                        "id": "1",
                         "name": "Tiramisu",
-                        "description": "Traditional Italian dessert",
-                        "price": 6.50
-                    },
-                    {
-                        "id": 4,
-                        "name": "Panna Cotta",
-                        "description": "Creamy vanilla pudding",
-                        "price": 6.00
-                    }
+                        "description": "Tiramisu maison",
+                        "basePrice": 12,
+                        "options": [
+                              { "id": "o1", "name": "Supplément café", "price": 2
+                              }
+                          ]
+                      },
+                      {
+                        "id": "2",
+                        "name": "Glace",
+                        "description": "Pomme, citron, fraise, vanille",
+                        "basePrice": 10,
+                        "options": [
+                              { "id": "o3", "name": "Double Boule", "price": 4
+                              },
+                              { "id": "o4", "name": "Coulie chocolat", "price": 2
+                              }
+                          ]
+                      }
                 ]
             }
         ]

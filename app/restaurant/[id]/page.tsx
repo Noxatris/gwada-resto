@@ -2,54 +2,15 @@
 
 import data from '@/app/dataTemp/restaurants.json'
 import Image from 'next/image'
-import { useCart } from "@/context/CartContext"
+
+import MenuItem from '../../(components)/menuItem'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
-import ItemsCard from '@/app/(components)/itemsCard';
-
-interface CartOption {
-    name: string;
-    price: number;
-}
-
-interface MenuItem {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    options?: CartOption[];
-}
-
-interface Menu {
-    id: number;
-    name: string;
-    category: string;
-    description: string;
-    items: MenuItem[];
-}
-
-interface Restaurant {
-    id: number;
-    name: string;
-    address: string;
-    description: string;
-    latitude: number;
-    longitude: number;
-    phone_number: string;
-    img_url: string;
-    email: string;
-    note: string;
-    tag: string[];
-    opening_hours: Record<string, string>;
-    menus: Menu[];
-}
 
 export default function Restaurant() {
 
     const restaurant = data[0]
-    const { cart } = useCart();
-    const { totalPrice } = useCart();
 
     return (
         <section>
@@ -89,13 +50,13 @@ export default function Restaurant() {
                             <p className='mb-2'>{menu.description}</p>
                             <div>
                                 {menu.items.map(item => (
-                                    <ItemsCard key={item.id} id={item.id} name={item.name} description={item.description} price={item.price} />
+                                    <MenuItem key={item.id} {...item} />
                                 ))}
                             </div>
                         </div>
                     ))}
                     <div className='flex flex-col w-full items-center px-4'>
-                        <p className='flex self-end mb-8'>Prix Total : {totalPrice.toFixed(2)}€</p>
+                        <p className='flex self-end mb-8'>Prix Total : {}€</p>
                         <button className='bg-cyan-400 text-white p-2 rounded-full w-10/12 shadow-xl'>Validé la commande</button>
                     </div>
                 </div>
