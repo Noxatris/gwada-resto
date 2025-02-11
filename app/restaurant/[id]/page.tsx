@@ -1,15 +1,24 @@
+'use client'
+
 import data from '@/app/dataTemp/restaurants.json'
 import Image from 'next/image'
+import { useCart } from "@/context/CartContext"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faLocationDot, faPhone} from '@fortawesome/free-solid-svg-icons';
+import { faStar, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons';
 import ItemsCard from '@/app/(components)/itemsCard';
+
+interface CartOption {
+    name: string;
+    price: number;
+}
 
 interface MenuItem {
     id: number;
     name: string;
     description: string;
     price: number;
+    options?: CartOption[];
 }
 
 interface Menu {
@@ -39,6 +48,8 @@ interface Restaurant {
 export default function Restaurant() {
 
     const restaurant = data[0]
+    const { cart } = useCart();
+    const { totalPrice } = useCart();
 
     return (
         <section>
@@ -73,18 +84,18 @@ export default function Restaurant() {
                 <h2 className='w-full flex justify-center text-2xl border-b-4 border-cyan-400 pb-2'>Menu</h2>
                 <div className='test pt-8 pb-16'>
                     {restaurant.menus.map(menu => (
-                        <div key={menu.id} className='test2 mx-4 px-4 py-2 mb-8 rounded-xl'>
-                            <h2 className='ml-8 text-xl py-2'>{menu.name}</h2>
+                        <div key={menu.id} className='flex flex-col test2 mx-4 px-4 py-2 mb-8 rounded-xl'>
+                            <h2 className='ml-8 text-xl py-2 flex self-center'>{menu.name}</h2>
                             <p className='mb-2'>{menu.description}</p>
                             <div>
                                 {menu.items.map(item => (
-                                    <ItemsCard key={item.id} id={item.id} name={item.name} description={item.description} price={item.price}  />
+                                    <ItemsCard key={item.id} id={item.id} name={item.name} description={item.description} price={item.price} />
                                 ))}
                             </div>
                         </div>
                     ))}
                     <div className='flex flex-col w-full items-center px-4'>
-                        <p className='flex self-end mb-8'>Prix Total : 0.00€</p>
+                        <p className='flex self-end mb-8'>Prix Total : {totalPrice.toFixed(2)}€</p>
                         <button className='bg-cyan-400 text-white p-2 rounded-full w-10/12 shadow-xl'>Validé la commande</button>
                     </div>
                 </div>

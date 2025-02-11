@@ -8,11 +8,11 @@ interface ItemsCardProps {
 export default function ItemsCard({ id, name, description, price }: ItemsCardProps) {
     return (
         <div id={id.toString()} className="flex items-center mb-2 justify-between w-full">
-            <div className="">
-                <h3 className="pl-4">{name}</h3>
+            <div className="w-[85%]">
+                <h3 className="pl-6">{name}</h3>
                 <p>{description}</p>
             </div>
-            <div className="border-l-2 border-cyan-400 pl-2">
+            <div className="w-[15%] border-l-2 border-cyan-400 pl-2">
                 {price}€
             </div>
         </div>
