@@ -13,8 +13,8 @@ const Cart = () => {
                 <p className="text-gray-500">Votre panier est vide.</p>
             ) : (
                 <div className="space-y-4">
-                    {cart.map((item) => (
-                        <div key={item.id} className="p-4 flex justify-between items-center">
+                    {cart.map((item, index) => (
+                        <div key={index} className="p-4 flex justify-between items-center">
                             <div className="flex flex-col">
                                 <span className="font-semibold">{item.name}</span>
                                 <span className="text-gray-600">Qté: {item.quantity}</span>
@@ -27,7 +27,7 @@ const Cart = () => {
                                 )}
                                 <span className="font-semibold mt-2">{item.totalPrice}€</span>
                             </div>
-                            <button onClick={() => removeFromCart(item.id)}>
+                            <button onClick={() => removeFromCart(item.id, item.options)}>
                                 Retirer
                             </button>
                         </div>

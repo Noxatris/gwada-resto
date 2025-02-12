@@ -63,24 +63,24 @@
                 "description": "Desserts sucrés pour terminer votre repas",
                 "items": [
                     {
-                        "id": "1",
+                        "id": "3",
                         "name": "Tiramisu",
                         "description": "Tiramisu maison",
                         "basePrice": 12,
                         "options": [
-                              { "id": "o1", "name": "Supplément café", "price": 2
+                              { "id": "o5", "name": "Supplément café", "price": 2
                               }
                           ]
                       },
                       {
-                        "id": "2",
+                        "id": "4",
                         "name": "Glace",
                         "description": "Pomme, citron, fraise, vanille",
                         "basePrice": 10,
                         "options": [
-                              { "id": "o3", "name": "Double Boule", "price": 4
+                              { "id": "o6", "name": "Double Boule", "price": 4
                               },
-                              { "id": "o4", "name": "Coulie chocolat", "price": 2
+                              { "id": "o7", "name": "Coulie chocolat", "price": 2
                               }
                           ]
                       }

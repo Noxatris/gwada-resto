@@ -26,7 +26,7 @@ interface CartState {
 // 🔥 Actions disponibles pour le panier
 type Action =
   | { type: "ADD_TO_CART"; item: CartItem }
-  | { type: "REMOVE_FROM_CART"; id: string }
+  | { type: "REMOVE_FROM_CART"; id: string; options: CartOption[] }
   | { type: "CLEAR_CART" }
   | { type: "UPDATE_QUANTITY"; id: string; quantity: number };
 
@@ -34,15 +34,24 @@ type Action =
 const cartReducer = (state: CartState, action: Action): CartState => {
   switch (action.type) {
     case "ADD_TO_CART": {
-      const existingItemIndex = state.cart.findIndex((item) => item.id === action.item.id);
+      const existingItemIndex = state.cart.findIndex(
+        (item) =>
+          item.id === action.item.id &&
+          JSON.stringify(item.options) === JSON.stringify(action.item.options) // Vérifie que les options sont identiques
+      );
+
       let updatedCart = [...state.cart];
 
       if (existingItemIndex !== -1) {
-        // Mise à jour de la quantité si l'article est déjà dans le panier
-        updatedCart[existingItemIndex].quantity += action.item.quantity;
-        updatedCart[existingItemIndex].totalPrice += action.item.totalPrice;
+        // Mise à jour de la quantité et du prix si l'article est déjà dans le panier avec les mêmes options
+        updatedCart[existingItemIndex] = {
+          ...updatedCart[existingItemIndex],
+          quantity: updatedCart[existingItemIndex].quantity + 1,
+          totalPrice: updatedCart[existingItemIndex].totalPrice + action.item.totalPrice,
+        };
       } else {
-        updatedCart.push(action.item);
+        // Ajout d'un nouvel item si c'est un plat différent ou avec des options différentes
+        updatedCart.push({ ...action.item, quantity: 1 });
       }
 
       return {
@@ -52,7 +61,7 @@ const cartReducer = (state: CartState, action: Action): CartState => {
     }
 
     case "REMOVE_FROM_CART": {
-      const updatedCart = state.cart.filter((item) => item.id !== action.id);
+      const updatedCart = state.cart.filter((item) => !(item.id === action.id && JSON.stringify(item.options) === JSON.stringify(action.options)));
       return {
         cart: updatedCart,
         totalPrice: updatedCart.reduce((total, item) => total + item.totalPrice, 0),
@@ -82,7 +91,7 @@ const CartContext = createContext<{
   cart: CartItem[];
   totalPrice: number;
   addToCart: (item: CartItem) => void;
-  removeFromCart: (id: string) => void;
+  removeFromCart: (id: string, options: CartOption[]) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
 } | null>(null);
@@ -92,7 +101,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(cartReducer, { cart: [], totalPrice: 0 });
 
   const addToCart = (item: CartItem) => dispatch({ type: "ADD_TO_CART", item });
-  const removeFromCart = (id: string) => dispatch({ type: "REMOVE_FROM_CART", id });
+  const removeFromCart = (id: string, options: CartOption[]) => dispatch({ type: "REMOVE_FROM_CART", id, options });
   const updateQuantity = (id: string, quantity: number) => dispatch({ type: "UPDATE_QUANTITY", id, quantity });
   const clearCart = () => dispatch({ type: "CLEAR_CART" });
 
